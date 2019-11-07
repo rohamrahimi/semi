@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib import auth
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -21,7 +22,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             print(raw_password)
             user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            auth.login(request, user)
             return redirect('/')
     return render(request, 'signup.html', context)
 
