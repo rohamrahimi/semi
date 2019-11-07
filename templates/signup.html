@@ -2,8 +2,8 @@
 
 {% block content %}
     <div class="ui container">
-        <form method="POST" class="ui form" id="register_form">
-            {{ form }}
+        <form method="POST" class="ui form" id='register_form'>
+            {{ form.as_p }}
             {% csrf_token %}
 
             <input type="submit" class="ui blue button" value="submit" name="submit">
