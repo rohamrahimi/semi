@@ -8,6 +8,7 @@ from samaneh.forms import SignUpForm
 def home_page(request):
     return render(request, 'samaneh/homepage.html')
 
+
 def signup(request):
     form = SignUpForm()
     context = {'form': form}
