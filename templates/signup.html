@@ -2,11 +2,11 @@
 
 {% block content %}
     <div class="ui container">
-        <form method="POST" class="ui form">
+        <form method="POST" class="ui form" id="register_form">
             {{ form }}
             {% csrf_token %}
 
-            <input type="submit" class="ui blue button" value="submit">
+            <input type="submit" class="ui blue button" value="submit" name="submit">
         </form>
     </div>
 {% endblock %}

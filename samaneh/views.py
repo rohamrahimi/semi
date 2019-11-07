@@ -22,5 +22,5 @@ def signup(request):
             print(raw_password)
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('')
+            return redirect('home')
     return render(request, 'signup.html', context)
