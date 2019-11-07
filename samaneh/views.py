@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login
+from django.contrib import auth
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from samaneh.forms import SignUpForm
+from samaneh.forms import SignUpForm, LoginForm, Contact
 
 
 def home_page(request):
@@ -21,6 +22,32 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             print(raw_password)
             user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            auth.login(request, user)
             return redirect('/')
     return render(request, 'signup.html', context)
+
+def login(request):
+    form = LoginForm()
+    context = {'form': form }
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+    else:
+        pass
+
+
+def contact(request):
+    form = Contact()
+    if request.method == 'POST':
+        form = Contact(request.POST)
+        print('ali')
+        if form.is_valid():
+            return redirect('/contacted')
+    context = {'form': form}
+    return render(request, 'contact.html', context)
+
+
+def contacted(request):
+    return render(request, 'contacted.html')
