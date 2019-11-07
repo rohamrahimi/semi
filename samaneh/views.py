@@ -18,9 +18,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            print(username)
             raw_password = form.cleaned_data.get('password1')
-            print(raw_password)
             user = authenticate(username=username, password=raw_password)
             auth.login(request, user)
             return redirect('/')
@@ -42,3 +40,14 @@ def login(request):
             error = True
     context['error'] = error
     return render(request, 'login.html', context)
+
+def contacted(request):
+    return render(request, 'contact.html')
+
+def contact(request):
+    return render(request, 'contacted.html')
+
+
+def logout(request):
+    auth.logout(request)
+    return render(request, 'samaneh/homepage.html', {})
