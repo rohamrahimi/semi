@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from samaneh.forms import SignUpForm
+from samaneh.forms import SignUpForm, LoginForm
 
 
 def home_page(request):
@@ -26,4 +26,12 @@ def signup(request):
     return render(request, 'signup.html', context)
 
 def login(request):
-    pass
+    form = LoginForm()
+    context = {'form': form }
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+    else:
+        pass
