@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -12,19 +13,23 @@ def home_page(request):
 
 def signup(request):
     form = SignUpForm()
-    context = {'form': form}
+    errors = []
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            print(username)
+            username = form.cleaned_data['username']
             raw_password = form.cleaned_data.get('password1')
-            print(raw_password)
             user = authenticate(username=username, password=raw_password)
             auth.login(request, user)
             return redirect('/')
+        if User.objects.filter(username=form.data['username']).exists():
+            errors.append('نام کاربری شما در سیستم موجود است')
+        if form.data['password1'] != form.data['password2']:
+            errors.append('گذرواژه و تکرار گذرواژه یکسان نیستند')
+    context = {'form': form, 'errors': errors}
     return render(request, 'signup.html', context)
+
 
 def login(request):
     form = LoginForm()
