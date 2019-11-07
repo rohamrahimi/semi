@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="ui container">
+        <form method="POST" class="ui form">
+            {{ form }}
+            {% csrf_token %}
+
+            <input type="submit" class="ui blue button" value="submit">
+        </form>
+    </div>
+{% endblock %}
