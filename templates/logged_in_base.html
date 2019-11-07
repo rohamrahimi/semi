@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <title>samaneh</title>
 </head>
 <body>
-$END$
+<div id="navbar" class="ui menu">
+  <div class="header item" >
+    samaneh
+  </div>
+    <a id="homepage" class="item" href="/">
+    homepage
+  </a>
+  <a id="login" class="item" href="/logout/">
+    logout
+  </a>
+</div>
+{% block content %}
+{% endblock %}
+
 </body>
 </html>
