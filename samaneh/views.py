@@ -33,6 +33,7 @@ def signup(request):
 
 def login(request):
     form = LoginForm()
+<<<<<<< Updated upstream
     context = {'form': form }
     username = request.POST['username']
     password = request.POST['password']
@@ -56,3 +57,18 @@ def contact(request):
 
 def contacted(request):
     return render(request, 'contacted.html')
+=======
+    context = {'form': form}
+    error = False
+    if request.POST:
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return render(request, 'samaneh/homepage.html', context)
+        else:
+            error = True
+    context['error'] = error
+    return render(request, 'login.html', context)
+>>>>>>> Stashed changes

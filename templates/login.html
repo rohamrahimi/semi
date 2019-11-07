@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form id="login_form">
-        {{ form }}
-        {%  csrf_token %}
-        {% if form.error %}
+    <div class="ui container">
+        <form id="login_form" class="ui form" method="post">
+            {{ form }}
+            {%  csrf_token %}
             <div>
-                {{ form.error }}
+                <button name="submit" style="margin: 10px;" class="ui button blue container">submit</button>
             </div>
-        {% endif %}
-    </form>
+            {% if error %}
+                <div class="ui container" dir="rtl">
+                    مشخصات وارد شده صحیح نمی‌باشند.
+                </div>
+            {% endif %}
+        </form>
+    </div>
 {% endblock %}

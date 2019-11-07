@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import *
 from django import forms
 from django.contrib.auth.models import User
 from django.core import validators
@@ -13,6 +13,7 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'last_name', 'email', 'first_name', 'password1', 'password2')
 
 
+<<<<<<< Updated upstream
 class LoginForm(UserCreationForm):
     class Meta:
         model = User
@@ -23,3 +24,8 @@ class Contact(forms.Form):
     title = forms.CharField(required=True)
     email = forms.EmailField(required=True)
     text = forms.CharField(validators=[validators.MinLengthValidator(10), validators.MaxLengthValidator(250)], required=True, widget=forms.Textarea)
+=======
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
+>>>>>>> Stashed changes
