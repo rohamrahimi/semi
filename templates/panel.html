@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="ui vertical menu">
-{#        {% if user %}#}
+        {% if user %}
             <a href="/makecourse/" id="make_new_course" class="item">make course</a>
-{#        {% endif %}#}
+        {% endif %}
         <a href="/courses/" id='courses' class="item">courses</a>
     </div>
 {% endblock %}
