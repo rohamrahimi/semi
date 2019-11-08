@@ -78,13 +78,6 @@ def contact(request):
 
 
 def contacted(request):
-    # send_mail(
-    #     'Subject here',
-    #     'Here is the message.',
-    #     'from@example.com',
-    #     ['to@example.com'],
-    #     fail_silently=False,
-    # )
     return render(request, 'contacted.html')
 
 
@@ -127,6 +120,9 @@ def setting(request):
             flag = True
         user.save()
         context['flag'] = flag
+        context.update({'username': request.user.username,
+                   'first_name': request.user.first_name,
+                   'last_name': request.user.last_name})
         return render(request, 'profile.html', context)
     context = {'form': form, 'flag': flag}
     return render(request, 'setting.html', context)
