@@ -60,7 +60,6 @@ def contact(request):
     form = Contact()
     if request.method == 'POST':
         form = Contact(request.POST)
-        print('ali')
         if form.is_valid():
             return redirect('/contacted')
     context = {'form': form}
