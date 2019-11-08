@@ -73,7 +73,6 @@ def contact(request):
 
 
 def contacted(request):
-    subject = request.
     send_mail(
         'Subject here',
         'Here is the message.',
