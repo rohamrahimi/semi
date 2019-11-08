@@ -66,13 +66,11 @@ def contact(request):
     if request.method == 'POST':
         form = Contact(request.POST)
         if form.is_valid():
-            # return redirect(reverse('contacted'))
-            return redirect('/contacted')
             send_mail(
                 request.POST['title'],
                 request.POST['email'] + "\n" + request.POST['text'],
                 'joorabnakhi@gmail.com',
-                ['rora1378@gmail.com']
+                ['webe19lopers@gmail.com']
             )
             return redirect('/contacted')
     context = {'form': form}
@@ -100,7 +98,7 @@ def profile(request):
     return redirect('/')
 
 
-def logout(request):
+def logout(requeett):
     auth.logout(request)
     return redirect('/')
 
@@ -127,6 +125,8 @@ def setting(request):
             user.last_name = last_name
             flag = True
         user.save()
+        context['flag'] = flag
+        return redirect('/profile', context)
     context = {'form': form, 'flag': flag}
     return render(request, 'setting.html', context)
 
