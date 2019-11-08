@@ -1,9 +1,12 @@
 from django.contrib.auth import authenticate, login
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from samaneh.forms import SignUpForm, LoginForm, Contact
+from django.urls import reverse
+
+from samaneh.forms import SignUpForm, LoginForm, Contact, MakeCourseForm
 
 
 def home_page(request):
@@ -58,9 +61,9 @@ def contact(request):
     form = Contact()
     if request.method == 'POST':
         form = Contact(request.POST)
-        print('ali')
         if form.is_valid():
-            return redirect('/contacted')
+            # return redirect(reverse('contacted'))
+            return render(request, 'contacted.html')
     context = {'form': form}
     return render(request, 'contact.html', context)
 
@@ -85,3 +88,13 @@ def logout(request):
 
 def go_panel(request):
     return render(request, 'panel.html')
+
+
+def make_course(request):
+    form = MakeCourseForm()
+    if request.method == 'POST':
+        form = MakeCourseForm(request.POST)
+        print('hello')
+    context = {'form': form}
+    return render(request, 'makecourse.html', context)
+

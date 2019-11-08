@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core import validators
 
+from samaneh.models import Course
 from . import models
 
 
@@ -24,6 +25,13 @@ class Contact(forms.Form):
     email = forms.EmailField(required=True)
     text = forms.CharField(validators=[validators.MinLengthValidator(10), validators.MaxLengthValidator(250)], required=True, widget=forms.Textarea)
 
+
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class MakeCourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = '__all__'
