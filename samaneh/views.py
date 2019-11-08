@@ -3,7 +3,9 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+from django.core.mail import send_mail
 # Create your views here.
+from samaneh.forms import SignUpForm, LoginForm, Contact, SettingForm
 from django.urls import reverse
 
 from samaneh.forms import SignUpForm, LoginForm, Contact, MakeCourseForm
@@ -71,7 +73,16 @@ def contact(request):
 
 
 def contacted(request):
+    subject = request.
+    send_mail(
+        'Subject here',
+        'Here is the message.',
+        'from@example.com',
+        ['to@example.com'],
+        fail_silently=False,
+    )
     return render(request, 'contacted.html')
+
 
 
 def profile(request):
@@ -93,8 +104,22 @@ def go_panel(request):
 
 
 def setting(request):
-    pass
-
+    form = SettingForm()
+    flag = False
+    if request.method == 'POST':
+        form = SettingForm(request.POST)
+        user = request.user
+        first_name = form.data['first_name']
+        last_name = form.data['last_name']
+        if first_name:
+            user.first_name = first_name
+            flag = True
+        if last_name:
+            user.last_name = last_name
+            flag = True
+        user.save()
+    context = {'form': form, 'flag': flag}
+    return render(request, 'setting.html', context)
 
 def make_course(request):
     form = MakeCourseForm()

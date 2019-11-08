@@ -35,3 +35,10 @@ class MakeCourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = '__all__'
+
+class SettingForm(forms.Form):
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']
