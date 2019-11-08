@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -84,10 +85,9 @@ def logout(request):
     return redirect('/')
 
 
-<<<<<<< Updated upstream
 def go_panel(request):
     return render(request, 'panel.html')
-=======
+
 def setting(request):
     pass
->>>>>>> Stashed changes
+
