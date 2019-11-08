@@ -98,7 +98,7 @@ def profile(request):
     return redirect('/')
 
 
-def logout(requeett):
+def logout(request):
     auth.logout(request)
     return redirect('/')
 
