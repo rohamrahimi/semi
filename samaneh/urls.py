@@ -1,12 +1,14 @@
 from django.conf.urls import url
 from django.urls import path
 
-from samaneh.views import home_page, signup, login, contact, contacted
+from samaneh.views import home_page, signup, login, contact, contacted, logout, profile
 
 urlpatterns = [
     path('', home_page),
     path('signup/', signup, name='signup'),
     path('login/', login, name='login'),
     path('contact/', contact),
-    path('contacted/', contacted)
+    path('contacted/', contacted),
+    path('logout/', logout),
+    path('profile/', profile)
 ]

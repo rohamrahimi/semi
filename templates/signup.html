@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="ui container">
-        <form method="POST" class="ui form" id='register_form'>
-            {{ form.as_p }}
-            {% csrf_token %}
-
-            <button class="ui button blue" name="submit" type="submit"> submit</button>
-        </form>
-    </div>
-    <div class="ui container negative message">
-        <div class="ui bulleted list" id="errors">
-            {% for error in errors %}
-                <div class="item">
-                    {{ error }}
+    <div class="page-login">
+      <div style="margin: 10px " class="ui centered grid container">
+        <div class="seven wide column">
+          <div class="ui fluid card">
+            <div class="content">
+            <form method="POST" class="ui form" id='register_form'>
+                {{ form.as_p }}
+                {% csrf_token %}
+                <div class="ui centered grid container">
+                    <div class="five wide column">
+                        <button class="ui primary button" name="submit" type="submit"> Sign-up</button>
+                    </div>
                 </div>
-            {% endfor %}
+            </form>
+
+                {% if error != None %}
+                    <div class="ui container negative message" id="error" dir="rtl">
+                        {{ error }}
+                    </div>
+                {% endif %}
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+
 {% endblock %}
