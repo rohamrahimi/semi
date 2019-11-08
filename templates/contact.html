@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="ui container">
-        <form id="contact_us_form" method="post" class="ui form">
-            {{ form }}
-            {% csrf_token %}
-            <input type='submit' class="ui blue button" value="submit">
-        </form>
+    <div class="page-login">
+        <div style="margin: 10px " class="ui centered grid container">
+            <div class="seven wide column">
+                <div class="ui fluid card">
+                    <div class="content">
+                        <form id="contact_us_form" method="post" class="ui form">
+                            {{ form }}
+                            {% csrf_token %}
+                            <input type='submit' class="ui blue button" value="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

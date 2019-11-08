@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from samaneh.forms import SignUpForm, LoginForm, Contact, MakeCourseForm
+from samaneh.models import Course
 
 
 def home_page(request):
@@ -15,27 +16,28 @@ def home_page(request):
 
 def signup(request):
     form = SignUpForm()
-    error = None
-    context = {'form': form, 'error':error}
+    errors = list()
+    context = {'form': form, 'errors': errors}
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        form.is_valid()
-        username = form.cleaned_data.get('username')
-        raw_password = form.cleaned_data.get('password1')
-        pass2 = form.cleaned_data.get('password2')
-        if not pass2 == raw_password:
-            error = 'گذرواژه و تکرار گذرواژه یکسان نیستند'
-        try:
-            user = User.objects.get(username=username)
-        except:
-            error = 'نام کاربری شما در سیستم موجود است'
-        if error:
-            context['error'] = error
-            return render(request, 'signup.html', context)
-        form.save()
-        user = authenticate(username=username, password=raw_password)
-        auth.login(request, user)
-        return redirect('/')
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            pass2 = form.cleaned_data.get('password2')
+            form.save()
+            user = authenticate(username=username, password=raw_password)
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            if not request.POST.get('password1') == request.POST.get('password2'):
+                errors.append('گذرواژه و تکرار گذرواژه یکسان نیستند')
+
+            if User.objects.filter(username=form.data['username']).exists():
+                errors.append('نام کاربری شما در سیستم موجود است')
+
+            if len(errors) > 0:
+                context['errors'] = errors
+                return render(request, 'signup.html', context)
 
     return render(request, 'signup.html', context)
 
@@ -90,11 +92,23 @@ def go_panel(request):
     return render(request, 'panel.html')
 
 
+def setting(request):
+    pass
+
+
 def make_course(request):
     form = MakeCourseForm()
     if request.method == 'POST':
         form = MakeCourseForm(request.POST)
-        print('hello')
+        if form.is_valid():
+            form.save()
+            go_courses(request)
     context = {'form': form}
     return render(request, 'makecourse.html', context)
+
+
+def go_courses(request):
+    courses = Course.objects.all()
+    context = {'courses': courses}
+    return render(request, 'courses.html', context)
 
