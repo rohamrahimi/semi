@@ -42,3 +42,7 @@ class SettingForm(forms.Form):
     class Meta:
         model = User
         fields = ['first_name', 'last_name']
+
+
+class SearchForm(forms.Form):
+    search_query = forms.CharField(max_length=100)

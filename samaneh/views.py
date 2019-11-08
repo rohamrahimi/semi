@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 from django.core.mail import send_mail
 # Create your views here.
-from samaneh.forms import SignUpForm, LoginForm, Contact, SettingForm
+from samaneh.forms import SignUpForm, LoginForm, Contact, SettingForm, SearchForm
 from django.urls import reverse
 
 from samaneh.forms import SignUpForm, LoginForm, Contact, MakeCourseForm
@@ -142,9 +142,16 @@ def make_course(request):
 
 
 def go_courses(request):
+    form = SearchForm()
+    search_courses = None
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            search_query = form.cleaned_data['search_query']
+            search_courses = Course.objects.filter(department=search_query)
     courses = Course.objects.all()
     my_courses = request.user.course_set.all()
-    context = {'courses': courses, 'my_courses': my_courses}
+    context = {'courses': courses, 'my_courses': my_courses, 'search_form': form, 'searched_courses': search_courses}
     return render(request, 'courses.html', context)
 
 
@@ -159,3 +166,17 @@ def remove_course(request, course_id):
     course.student.remove(request.user)
     course.save()
     return redirect('go_courses')
+
+
+# def search_dep(request):
+#     print('1')
+#     form = SearchForm()
+#     courses = None
+#     if request.method == 'POST':
+#         form = SearchForm(request.POST)
+#         if form.is_valid():
+#             search_query = form.cleaned_data['search_query']
+#             courses = Course.objects.filter(department=search_query)
+#     context = {'search_form': form, 'searched_course': courses}
+#     return render(request, 'courses.html', context)
+

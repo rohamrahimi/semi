@@ -1,5 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
+     <div>
+        <form method="post" id="search_form" class="ui form">
+            {{ search_form.as_p }}
+            {% csrf_token %}
+            <input type="submit" class="ui blue button" value="submit" name="submit">
+        </form>
+    </div>
+    <div id="search_result">
+        {% for course in searched_courses %}
+            <div class="{{ course.course_number }}_{{ course.group_number }}">
+            {{ course.name }}
+            {{ course.teacher }}
+            </div>
+        {% endfor %}
+
+    </div>
     <div id="all_courses">
         {% for course in courses %}
             {% if not course in my_courses %}
@@ -79,4 +95,5 @@
         {% endfor %}
 
     </div>
+
 {% endblock %}
