@@ -3,7 +3,9 @@ from django.contrib import auth
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from samaneh.forms import SignUpForm, LoginForm
+from samaneh.forms import SignUpForm, LoginForm, User
+
+user = None
 
 
 def home_page(request):
@@ -12,16 +14,28 @@ def home_page(request):
 
 def signup(request):
     form = SignUpForm()
-    context = {'form': form}
+    error = None
+    context = {'form': form, 'error':error}
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            auth.login(request, user)
-            return redirect('/')
+        form.is_valid()
+        username = form.cleaned_data.get('username')
+        raw_password = form.cleaned_data.get('password1')
+        pass2 = form.cleaned_data.get('password2')
+        if not pass2 == raw_password:
+            error = 'گذرواژه و تکرار گذرواژه یکسان نیستند'
+        try:
+            user = User.objects.get(username=username)
+        except:
+            error = 'نام کاربری شما در سیستم موجود است'
+        if error:
+            context['error'] = error
+            return render(request, 'signup.html', context)
+        form.save()
+        user = authenticate(username=username, password=raw_password)
+        auth.login(request, user)
+        return redirect('/')
+
     return render(request, 'signup.html', context)
 
 
@@ -41,13 +55,24 @@ def login(request):
     context['error'] = error
     return render(request, 'login.html', context)
 
-def contacted(request):
-    return render(request, 'contact.html')
 
 def contact(request):
+    return render(request, 'contact.html')
+
+
+def contacted(request):
     return render(request, 'contacted.html')
+
+
+def profile(request):
+    if request.user.is_authenticated:
+        context = {'username': request.user.username,
+                   'first_name': request.user.first_name,
+                   'last_name': request.user.last_name}
+        return render(request, 'profile.html', context)
+    return redirect('/')
 
 
 def logout(request):
     auth.logout(request)
-    return render(request, 'samaneh/homepage.html', {})
+    return redirect('/')
