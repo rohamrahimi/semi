@@ -15,5 +15,6 @@ urlpatterns = [
     path('makecourse/', make_course),
     path('setting/', setting),
     path('courses/', go_courses, name='go_courses'),
-    url(r'^add/(?P<course_id>\d+)', add_course, name='add')
+    url(r'^add/(?P<course_id>\d+)', add_course, name='add'),
+    url(r'^add/(?P<course_id>\d+)', add_course, name='remove')
 ]

@@ -31,12 +31,12 @@
                                     <div class="ui label" style="margin-top: 5px;">
                                         <i class="user icon"></i> {{ course.teacher }}
                                     </div>
+                                    <a href='{% url 'add' course_id=course.id %}' class="add">add</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href='{% url 'add' course_id=course.id %}' class="add">add</a>
             {% endif %}
         {% endfor %}
     </div>
@@ -70,6 +70,7 @@
                                 <div class="ui label" style="margin-top: 5px;">
                                     <i class="user icon"></i> {{ course.teacher }}
                                 </div>
+                                <a href='{% url 'remove' course_id=course.id %}' class="remove">add</a>
                             </div>
                         </div>
                     </div>
