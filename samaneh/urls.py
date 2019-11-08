@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
 
-from samaneh.views import home_page, signup, login, contact, contacted, logout, profile
+from samaneh.views import home_page, signup, login, contact, contacted, logout, profile, go_panel
 
 urlpatterns = [
     path('', home_page),
@@ -10,5 +10,6 @@ urlpatterns = [
     path('contact/', contact),
     path('contacted/', contacted),
     path('logout/', logout),
-    path('profile/', profile)
+    path('profile/', profile),
+    path('panel/', go_panel)
 ]

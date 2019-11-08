@@ -3,9 +3,7 @@ from django.contrib import auth
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from samaneh.forms import SignUpForm, LoginForm, User
-
-user = None
+from samaneh.forms import SignUpForm, LoginForm, Contact
 
 
 def home_page(request):
@@ -57,7 +55,14 @@ def login(request):
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    form = Contact()
+    if request.method == 'POST':
+        form = Contact(request.POST)
+        print('ali')
+        if form.is_valid():
+            return redirect('/contacted')
+    context = {'form': form}
+    return render(request, 'contact.html', context)
 
 
 def contacted(request):
@@ -76,3 +81,7 @@ def profile(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
+def go_panel(request):
+    return render(request, 'panel.html')
