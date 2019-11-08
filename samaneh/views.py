@@ -67,19 +67,19 @@ def contact(request):
         form = Contact(request.POST)
         if form.is_valid():
             # return redirect(reverse('contacted'))
-            return render(request, 'contacted.html')
+            return redirect('/contacted')
     context = {'form': form}
     return render(request, 'contact.html', context)
 
 
 def contacted(request):
-    send_mail(
-        'Subject here',
-        'Here is the message.',
-        'from@example.com',
-        ['to@example.com'],
-        fail_silently=False,
-    )
+    # send_mail(
+    #     'Subject here',
+    #     'Here is the message.',
+    #     'from@example.com',
+    #     ['to@example.com'],
+    #     fail_silently=False,
+    # )
     return render(request, 'contacted.html')
 
 
@@ -99,7 +99,10 @@ def logout(request):
 
 
 def go_panel(request):
-    return render(request, 'panel.html')
+    superuser = False
+    if request.user.is_superuser:
+        superuser = True
+    return render(request, 'panel.html', {'user': superuser})
 
 
 def setting(request):
@@ -120,13 +123,16 @@ def setting(request):
     context = {'form': form, 'flag': flag}
     return render(request, 'setting.html', context)
 
+
 def make_course(request):
     form = MakeCourseForm()
     if request.method == 'POST':
         form = MakeCourseForm(request.POST)
         if form.is_valid():
             form.save()
-            go_courses(request)
+            courses = Course.objects.all()
+            context = {'courses': courses}
+            return render(request, 'courses.html', context)
     context = {'form': form}
     return render(request, 'makecourse.html', context)
 
