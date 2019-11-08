@@ -157,4 +157,5 @@ def add_course(request, course_id):
 def remove_course(request, course_id):
     course = Course.objects.get(id=course_id)
     course.student.remove(request.user)
+    course.save()
     return redirect('go_courses')
