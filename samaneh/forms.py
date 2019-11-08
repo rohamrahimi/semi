@@ -27,3 +27,10 @@ class Contact(forms.Form):
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+class SettingForm(forms.Form):
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']

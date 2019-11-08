@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from samaneh.forms import SignUpForm, LoginForm, Contact
+from samaneh.forms import SignUpForm, LoginForm, Contact, SettingForm
 
 
 def home_page(request):
@@ -88,6 +88,21 @@ def logout(request):
 def go_panel(request):
     return render(request, 'panel.html')
 
-def setting(request):
-    pass
 
+def setting(request):
+    form = SettingForm()
+    flag = False
+    if request.method == 'POST':
+        form = SettingForm(request.POST)
+        user = request.user
+        first_name = form.data['first_name']
+        last_name = form.data['last_name']
+        if first_name:
+            user.first_name = first_name
+            flag = True
+        if last_name:
+            user.last_name = last_name
+            flag = True
+        user.save()
+    context = {'form': form, 'flag': flag}
+    return render(request, 'setting.html', context)
