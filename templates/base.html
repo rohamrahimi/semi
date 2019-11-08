@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-<link rel="stylesheet" href="login.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="login.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <title>samaneh</title>
 </head>
 <body>
 <div id="navbar" class="ui inverted menu">
-  <div class="header item " >
-    samaneh
-  </div>
+    <div class="header item ">
+        samaneh
+    </div>
     <a id="homepage" class="item" href="/">
-    homepage
-  </a>
+        homepage
+    </a>
     <a class="item" href="/contact" id="contact_us">
         contact us
     </a>
     {% if request.user.is_authenticated %}
         <a href="/profile/" class="item" id="profile">profile</a>
         <a href="/panel/" id="panel" class="item">panel</a>
-      <a id="logout" class="item" href="/logout/">
-        logout
-      </a>
+        <a id="logout" class="item" href="/logout/">
+            logout
+        </a>
     {% else %}
         <a id="login" class="item" href="/login/">
-        login
+            login
         </a>
         <a id="register" class="item" href="/signup/">
-        register
+            register
         </a>
     {% endif %}
 </div>

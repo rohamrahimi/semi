@@ -66,13 +66,11 @@ def contact(request):
     if request.method == 'POST':
         form = Contact(request.POST)
         if form.is_valid():
-            # return redirect(reverse('contacted'))
-            return redirect('/contacted')
             send_mail(
                 request.POST['title'],
                 request.POST['email'] + "\n" + request.POST['text'],
                 'joorabnakhi@gmail.com',
-                ['rora1378@gmail.com']
+                ['webe19lopers@gmail.com']
             )
             return redirect('/contacted')
     context = {'form': form}
@@ -80,13 +78,6 @@ def contact(request):
 
 
 def contacted(request):
-    # send_mail(
-    #     'Subject here',
-    #     'Here is the message.',
-    #     'from@example.com',
-    #     ['to@example.com'],
-    #     fail_silently=False,
-    # )
     return render(request, 'contacted.html')
 
 
@@ -115,6 +106,7 @@ def go_panel(request):
 def setting(request):
     form = SettingForm()
     flag = False
+    context = dict()
     if request.method == 'POST':
         form = SettingForm(request.POST)
         user = request.user
@@ -127,6 +119,11 @@ def setting(request):
             user.last_name = last_name
             flag = True
         user.save()
+        context['flag'] = flag
+        context.update({'username': request.user.username,
+                   'first_name': request.user.first_name,
+                   'last_name': request.user.last_name})
+        return render(request, 'profile.html', context)
     context = {'form': form, 'flag': flag}
     return render(request, 'setting.html', context)
 
