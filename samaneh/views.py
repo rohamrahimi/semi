@@ -66,20 +66,18 @@ def contact(request):
     if request.method == 'POST':
         form = Contact(request.POST)
         if form.is_valid():
-            # return redirect(reverse('contacted'))
-            return render(request, 'contacted.html')
+            send_mail(
+                request.POST['title'],
+                request.POST['email'] + "\n" + request.POST['text'],
+                'joorabnakhi@gmail.com',
+                ['rora1378@gmail.com']
+            )
+            return redirect('/contacted')
     context = {'form': form}
     return render(request, 'contact.html', context)
 
 
 def contacted(request):
-    send_mail(
-        'Subject here',
-        'Here is the message.',
-        'from@example.com',
-        ['to@example.com'],
-        fail_silently=False,
-    )
     return render(request, 'contacted.html')
 
 
@@ -129,6 +127,7 @@ def make_course(request):
             go_courses(request)
     context = {'form': form}
     return render(request, 'makecourse.html', context)
+
 
 
 def go_courses(request):
