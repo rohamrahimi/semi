@@ -68,6 +68,13 @@ def contact(request):
         if form.is_valid():
             # return redirect(reverse('contacted'))
             return redirect('/contacted')
+            send_mail(
+                request.POST['title'],
+                request.POST['email'] + "\n" + request.POST['text'],
+                'joorabnakhi@gmail.com',
+                ['rora1378@gmail.com']
+            )
+            return redirect('/contacted')
     context = {'form': form}
     return render(request, 'contact.html', context)
 
@@ -135,6 +142,7 @@ def make_course(request):
             return render(request, 'courses.html', context)
     context = {'form': form}
     return render(request, 'makecourse.html', context)
+
 
 
 def go_courses(request):
