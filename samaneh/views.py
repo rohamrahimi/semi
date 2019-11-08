@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+from django.core.mail import send_mail
 # Create your views here.
 from samaneh.forms import SignUpForm, LoginForm, Contact, SettingForm
 
@@ -67,7 +68,16 @@ def contact(request):
 
 
 def contacted(request):
+    subject = request.
+    send_mail(
+        'Subject here',
+        'Here is the message.',
+        'from@example.com',
+        ['to@example.com'],
+        fail_silently=False,
+    )
     return render(request, 'contacted.html')
+
 
 
 def profile(request):
