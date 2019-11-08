@@ -16,10 +16,13 @@
                 </div>
             </form>
 
-                {% if error != None %}
-                    <div class="ui container negative message" id="error" dir="rtl">
-                        {{ error }}
-                    </div>
+                {% if errors %}
+                     {% for error in errors %}
+                        <ul>
+                            {{ error }}
+                        </ul>
+                     {% endfor %}
+
                 {% endif %}
             </div>
           </div>
