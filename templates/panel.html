@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="ui vertical menu">
-        {% if user %}
-            <a href="/makecourse/" id="make_new_course" class="item">make course</a>
-        {% endif %}
-        <a href="/courses/" id='courses' class="item">courses</a>
+    <div class="ui centered grid">
+
+        <div class="ui vertical menu" style="margin-top: 20px">
+            {% if user %}
+                <a href="/makecourse/" id="make_new_course" class="item">make course</a>
+            {% endif %}
+            <a href="/courses/" id='courses' class="item">courses</a>
+        </div>
     </div>
 {% endblock %}

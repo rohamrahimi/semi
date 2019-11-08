@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="ui centered grid">
-        <div style="margin-top: 100px" class="five wide column">
+        <div style="margin-top: 70px" class="five wide column">
             <div class="ui card">
                 <div class="image">
                     <img src="/media/kristy.png">
@@ -16,22 +16,25 @@
                 </div>
                 <div class="extra content">
                     <a href="/setting" id="setting">
-                        <i class="user icon"></i>
+                        <i class="cog icon"></i>
                         Settings
                     </a>
                 </div>
             </div>
-        </div>
+                <div style="margin-top: 10px">
 
-        {% if flag %}
+                    {% if flag %}
 
-            <div style="margin-top: 10px" class="ui success message">
-                <i class="close icon"></i>
-                <div class="header">
-                    Your name or last_name changed successful.
+                        <div style="margin-top: 10px" class="ui success message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                Your name or last_name changed successful.
+                            </div>
+                            <p>You can change them again and again</p>
+                        </div>
+                    {% endif %}
                 </div>
-                <p>You can change them again and again</p>
-            </div>
-        {% endif %}
+
+        </div>
     </div>
 {% endblock %}

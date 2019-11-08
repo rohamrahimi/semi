@@ -113,6 +113,7 @@ def go_panel(request):
 def setting(request):
     form = SettingForm()
     flag = False
+    context = dict()
     if request.method == 'POST':
         form = SettingForm(request.POST)
         user = request.user
@@ -126,7 +127,7 @@ def setting(request):
             flag = True
         user.save()
         context['flag'] = flag
-        return redirect('/profile', context)
+        return render(request, 'profile.html', context)
     context = {'form': form, 'flag': flag}
     return render(request, 'setting.html', context)
 
