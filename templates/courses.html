@@ -1,15 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-<div id="all_courses">
-    {% for course in courses %}
-        <div class="{{ course.course_number}}_{{ course.group_number }}">
-        <h4>{{ course.name }}</h4>
-        <div>{{ course.department }}</div>
-        <div>{{ course.get_first_day_display }} و {{ course.get_second_day_display }}</div>
-        <div>{{ course.start_time.hour|stringformat:"02d"}}:{{ course.start_time.minute|stringformat:"02d"}} to
-            {{ course.end_time.hour|stringformat:"02d"}}:{{ course.end_time.minute|stringformat:"02d"}}</div>
-        <div>{{ course.teacher }}</div>
-        </div>
-    {% endfor %}
-</div>
+    <div id="all_courses">
+        {% for course in courses %}
+            {% if not course in  my_courses %}
+                <div class="{{ course.course_number }}_{{ course.group_number }}">
+                    <h4>{{ course.name }}</h4>
+                    <div>{{ course.department }}</div>
+                    <div>{{ course.get_first_day_display }} و {{ course.get_second_day_display }}</div>
+                    <div>{{ course.start_time.hour|stringformat:"02d" }}:{{ course.start_time.minute|stringformat:"02d" }}
+                        to
+                        {{ course.end_time.hour|stringformat:"02d" }}:{{ course.end_time.minute|stringformat:"02d" }}</div>
+                    <div>{{ course.teacher }}</div>
+                    <a href='{% url 'add' course_id=course.id %}' class="add">add</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div id="my_courses">
+        {% for course in my_courses %}
+            <div class="{{ course.course_number }}_{{ course.group_number }}">
+                <h4>{{ course.name }}</h4>
+                <div>{{ course.department }}</div>
+                <div>{{ course.get_first_day_display }} و {{ course.get_second_day_display }}</div>
+                <div>{{ course.start_time.hour|stringformat:"02d" }}:{{ course.start_time.minute|stringformat:"02d" }}
+                    to
+                    {{ course.end_time.hour|stringformat:"02d" }}:{{ course.end_time.minute|stringformat:"02d" }}</div>
+                <div>{{ course.teacher }}</div>
+            </div>
+        {% endfor %}
+
+    </div>
 {% endblock %}

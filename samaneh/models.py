@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, User
 from django.db import models
 from django.forms import CharField
 
@@ -22,3 +22,4 @@ class Course(models.Model):
     end_time = models.TimeField()
     first_day = models.IntegerField(choices=DAY_CHOICES, default='0')
     second_day = models.IntegerField(choices=DAY_CHOICES, default='0')
+    student = models.ManyToManyField(User)

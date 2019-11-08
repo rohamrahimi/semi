@@ -34,7 +34,7 @@ class LoginForm(forms.Form):
 class MakeCourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = '__all__'
+        exclude = ['student']
 
 class SettingForm(forms.Form):
     first_name = forms.CharField(required=False)

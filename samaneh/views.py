@@ -144,9 +144,14 @@ def make_course(request):
     return render(request, 'makecourse.html', context)
 
 
-
 def go_courses(request):
     courses = Course.objects.all()
-    context = {'courses': courses}
+    my_courses = request.user.course_set.all()
+    context = {'courses': courses, 'my_courses': my_courses}
     return render(request, 'courses.html', context)
 
+
+def add_course(request, course_id):
+    course = Course.objects.get(id=course_id)
+    course.student.add(request.user)
+    return redirect('go_courses')
