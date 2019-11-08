@@ -2,30 +2,78 @@
 {% block content %}
     <div id="all_courses">
         {% for course in courses %}
-            {% if not course in  my_courses %}
-                <div class="{{ course.course_number }}_{{ course.group_number }}">
-                    <h4>{{ course.name }}</h4>
-                    <div>{{ course.department }}</div>
-                    <div>{{ course.get_first_day_display }} و {{ course.get_second_day_display }}</div>
-                    <div>{{ course.start_time.hour|stringformat:"02d" }}:{{ course.start_time.minute|stringformat:"02d" }}
-                        to
-                        {{ course.end_time.hour|stringformat:"02d" }}:{{ course.end_time.minute|stringformat:"02d" }}</div>
-                    <div>{{ course.teacher }}</div>
-                    <a href='{% url 'add' course_id=course.id %}' class="add">add</a>
+            {% if not course in my_courses %}
+                <div style="margin: 5px " class="ui centered grid container">
+                    <div class="eight wide column">
+                        <div class="ui fluid card">
+                            <div class="content">
+                                <div class="{{ course.course_number }}_{{ course.group_number }}">
+                                    <h4>{{ course.name }}</h4>
+                                    <div class="ui label" style="margin-top: 5px;">
+                                        <i class="building icon"></i> {{ course.department }}
+                                    </div>
+                                    <div class="ui label" style="margin-top: 5px;">
+                                        <i class="calendar icon"></i> {{ course.get_first_day_display }}
+                                        و {{ course.get_second_day_display }}
+                                    </div>
+
+                                    <div class="ui label" style="margin-top: 5px;">
+                                        <i class="calendar icon"></i> {{ course.get_first_day_display }}
+                                        و {{ course.get_second_day_display }}
+                                    </div>
+                                    <div class="ui label" style="margin-top: 5px;">
+                                        <i class="wait icon"></i> {{ course.start_time.hour|stringformat:"02d" }}:{{ course.start_time.minute|stringformat:"02d" }}
+                                        to
+                                        {{ course.end_time.hour|stringformat:"02d" }}:{{ course.end_time.minute|stringformat:"02d" }}
+
+                                    </div>
+
+                                    <div class="ui label" style="margin-top: 5px;">
+                                        <i class="user icon"></i> {{ course.teacher }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <a href='{% url 'add' course_id=course.id %}' class="add">add</a>
             {% endif %}
         {% endfor %}
     </div>
     <div id="my_courses">
         {% for course in my_courses %}
-            <div class="{{ course.course_number }}_{{ course.group_number }}">
-                <h4>{{ course.name }}</h4>
-                <div>{{ course.department }}</div>
-                <div>{{ course.get_first_day_display }} و {{ course.get_second_day_display }}</div>
-                <div>{{ course.start_time.hour|stringformat:"02d" }}:{{ course.start_time.minute|stringformat:"02d" }}
-                    to
-                    {{ course.end_time.hour|stringformat:"02d" }}:{{ course.end_time.minute|stringformat:"02d" }}</div>
-                <div>{{ course.teacher }}</div>
+            <div style="margin: 5px " class="ui centered grid container">
+                <div class="eight wide column">
+                    <div class="ui fluid card">
+                        <div class="content">
+                            <div class="{{ course.course_number }}_{{ course.group_number }}">
+                                <h4>{{ course.name }}</h4>
+                                <div class="ui label" style="margin-top: 5px;">
+                                    <i class="building icon"></i> {{ course.department }}
+                                </div>
+                                <div class="ui label" style="margin-top: 5px;">
+                                    <i class="calendar icon"></i> {{ course.get_first_day_display }}
+                                    و {{ course.get_second_day_display }}
+                                </div>
+
+                                <div class="ui label" style="margin-top: 5px;">
+                                    <i class="calendar icon"></i> {{ course.get_first_day_display }}
+                                    و {{ course.get_second_day_display }}
+                                </div>
+                                <div class="ui label" style="margin-top: 5px;">
+                                    <i class="wait icon"></i> {{ course.start_time.hour|stringformat:"02d" }}:{{ course.start_time.minute|stringformat:"02d" }}
+                                    to
+                                    {{ course.end_time.hour|stringformat:"02d" }}:{{ course.end_time.minute|stringformat:"02d" }}
+
+                                </div>
+
+                                <div class="ui label" style="margin-top: 5px;">
+                                    <i class="user icon"></i> {{ course.teacher }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         {% endfor %}
 
